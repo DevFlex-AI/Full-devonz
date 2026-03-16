@@ -1,0 +1,44 @@
+# Dependencies
+node_modules/
+.pnpm-store/
+
+# Builds
+dist/
+.next/
+out/
+.turbo/
+*.vsix
+
+# Desktop build artifacts
+apps/desktop/.build/
+apps/desktop/node_modules/
+apps/desktop/out-build/
+apps/desktop/out-vscode/
+apps/desktop/out-vscode-server/
+apps/desktop/out-vscode-web/
+apps/desktop/out-vscode-reh/
+
+# Web editor build artifacts
+apps/web-editor/.build/
+apps/web-editor/node_modules/
+apps/web-editor/out/
+apps/web-editor/out-build/
+apps/web-editor/out-server-min/
+
+# Environment
+.env
+.env.local
+.env.production
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Logs
+*.log
+npm-debug.log*
+pnpm-debug.log*
+
+# IDE
+.vscode/settings.json
+.idea/

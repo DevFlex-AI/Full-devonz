@@ -1,0 +1,25 @@
+{
+  "name": "@devonz/ai-core",
+  "version": "1.0.0",
+  "description": "Devonz AI core — unified provider abstraction for OpenAI, Anthropic, Gemini, Mistral, Ollama, and more",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "scripts": {
+    "build": "tsc",
+    "dev": "tsc --watch",
+    "test": "vitest"
+  },
+  "dependencies": {
+    "openai": "^4.47.0",
+    "@anthropic-ai/sdk": "^0.20.9",
+    "@google/generative-ai": "^0.11.0",
+    "ollama": "^0.5.0",
+    "tiktoken": "^1.0.15",
+    "zod": "^3.23.8"
+  },
+  "devDependencies": {
+    "typescript": "^5.4.0",
+    "@types/node": "^20.0.0",
+    "vitest": "^1.6.0"
+  }
+}

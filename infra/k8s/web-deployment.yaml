@@ -1,0 +1,46 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: devonz-web
+  labels:
+    app: devonz-web
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: devonz-web
+  template:
+    metadata:
+      labels:
+        app: devonz-web
+    spec:
+      containers:
+        - name: web
+          image: devflexai/devonz-web:latest
+          ports:
+            - containerPort: 3000
+          resources:
+            requests:
+              memory: "256Mi"
+              cpu: "100m"
+            limits:
+              memory: "1Gi"
+              cpu: "500m"
+          livenessProbe:
+            httpGet:
+              path: /api/healthz
+              port: 3000
+            initialDelaySeconds: 15
+            periodSeconds: 10
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: devonz-web-svc
+spec:
+  selector:
+    app: devonz-web
+  ports:
+    - port: 80
+      targetPort: 3000
+  type: ClusterIP

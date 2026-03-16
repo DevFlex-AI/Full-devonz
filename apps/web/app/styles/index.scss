@@ -1,0 +1,133 @@
+@use 'variables.scss';
+@use 'z-index.scss';
+@use 'animations.scss';
+@use 'components/terminal.scss';
+@use 'components/resize-handle.scss';
+@use 'components/code.scss';
+@use 'components/editor.scss';
+@use 'components/toast.scss';
+
+@import 'diff-view.css';
+
+html,
+body {
+  height: 100%;
+  width: 100%;
+  background-color: var(--bolt-elements-bg-depth-1);
+}
+
+// Modern scrollbar styling - apply only to scrollable containers
+html,
+body,
+.chat-container,
+.editor-panel,
+.file-tree,
+.terminal-container,
+.settings-panel,
+.message-list,
+.code-block,
+pre,
+textarea,
+[class*="overflow-auto"],
+[class*="overflow-y-auto"],
+[class*="overflow-x-auto"],
+[class*="overflow-scroll"] {
+  scrollbar-width: thin;
+  scrollbar-color: #444444 #131a24;
+
+  &::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+  }
+
+  &::-webkit-scrollbar-track {
+    background: #131a24;
+    border-radius: 4px;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    background-color: #444444;
+    border-radius: 4px;
+    border: 2px solid #131a24;
+
+    &:hover {
+      background-color: #555555;
+    }
+  }
+
+  &::-webkit-scrollbar-corner {
+    background: #131a24;
+  }
+}
+
+:root {
+  --gradient-opacity: 0.8;
+  --primary-color: rgba(30, 58, 138, var(--gradient-opacity));
+  --secondary-color: rgba(23, 37, 84, var(--gradient-opacity));
+  --accent-color: rgba(59, 130, 246, var(--gradient-opacity));
+  // Dark navy blue theme - replacing purple
+}
+
+.modern-scrollbar {
+  overflow: auto;
+
+  // WebKit scrollbar styling
+  &::-webkit-scrollbar {
+    width: 10px;
+    height: 10px;
+  }
+
+  &::-webkit-scrollbar-track {
+    background: var(--modern-scrollbar-track-background, #131a24);
+  }
+
+  &::-webkit-scrollbar-thumb {
+    // Use CSS variables for colors
+    background-color: var(--modern-scrollbar-thumb-background);
+    border-radius: 5px;
+  }
+
+  &::-webkit-scrollbar-thumb:hover {
+    // Use CSS variable for hover color
+    background-color: var(--modern-scrollbar-thumb-backgroundHover);
+  }
+
+  &::-webkit-scrollbar-corner {
+    background: var(--modern-scrollbar-track-background, #131a24);
+  }
+
+  // Firefox support
+  scrollbar-width: thin;
+  // Use CSS variables for Firefox colors
+  scrollbar-color: var(--modern-scrollbar-thumb-background) var(--modern-scrollbar-track-background, #131a24);
+}
+
+.modern-scrollbar-invert {
+  &::-webkit-scrollbar-thumb {
+    // Override with a contrasting color, e.g., primary text color with transparency
+    background-color: color-mix(in srgb, var(--bolt-elements-textPrimary), transparent 70%);
+  }
+
+  &::-webkit-scrollbar-thumb:hover {
+    // Darker/more opaque version on hover
+    background-color: color-mix(in srgb, var(--bolt-elements-textPrimary), transparent 50%);
+  }
+
+  // Firefox support for inverted colors
+  scrollbar-color: color-mix(in srgb, var(--bolt-elements-textPrimary), transparent 50%) transparent;
+}
+
+// Content visibility optimization for long message lists
+// Improves scroll performance by skipping rendering of off-screen content
+.message-item,
+.chat-message,
+[class*='Message'] {
+  content-visibility: auto;
+  contain-intrinsic-size: 0 100px; // Estimated height for placeholder
+}
+
+// File tree items optimization for large directories
+.file-tree-item {
+  content-visibility: auto;
+  contain-intrinsic-size: 0 24px;
+}

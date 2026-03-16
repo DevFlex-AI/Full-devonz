@@ -1,0 +1,61 @@
+{
+  "name": "devonz-bridge",
+  "displayName": "Devonz Bridge",
+  "description": "Connects Devonz Editor Web to the Devonz platform — real-time file sync, AI chat, and project management",
+  "version": "1.0.0",
+  "publisher": "DevFlex-AI",
+  "icon": "media/devonz-icon.png",
+  "engines": { "vscode": "^1.90.0" },
+  "categories": ["Other"],
+  "activationEvents": ["onStartupFinished"],
+  "main": "./dist/extension.js",
+  "contributes": {
+    "commands": [
+      { "command": "devonz.openProject", "title": "Devonz: Open Project", "icon": "$(folder-opened)" },
+      { "command": "devonz.syncNow", "title": "Devonz: Sync Now", "icon": "$(sync)" },
+      { "command": "devonz.openAIChat", "title": "Devonz: Open AI Chat", "icon": "$(comment-discussion)" },
+      { "command": "devonz.showStatus", "title": "Devonz: Show Connection Status" }
+    ],
+    "viewsContainers": {
+      "activitybar": [
+        { "id": "devonz-sidebar", "title": "Devonz", "icon": "media/devonz-icon.svg" }
+      ]
+    },
+    "views": {
+      "devonz-sidebar": [
+        { "type": "webview", "id": "devonz.chatView", "name": "AI Chat" },
+        { "id": "devonz.projectView", "name": "Project" }
+      ]
+    },
+    "configuration": {
+      "title": "Devonz",
+      "properties": {
+        "devonz.apiUrl": {
+          "type": "string",
+          "default": "https://api.devonz.ai",
+          "description": "Devonz API endpoint"
+        },
+        "devonz.autoSync": {
+          "type": "boolean",
+          "default": true,
+          "description": "Automatically sync file changes to Devonz"
+        },
+        "devonz.syncDebounceMs": {
+          "type": "number",
+          "default": 500,
+          "description": "Debounce delay for auto-sync in milliseconds"
+        }
+      }
+    }
+  },
+  "scripts": {
+    "build": "esbuild src/extension.ts --bundle --outfile=dist/extension.js --external:vscode --platform=node --format=cjs",
+    "dev": "npm run build -- --watch"
+  },
+  "devDependencies": {
+    "@types/vscode": "^1.90.0",
+    "@types/node": "^20.0.0",
+    "esbuild": "^0.21.0",
+    "typescript": "^5.4.0"
+  }
+}

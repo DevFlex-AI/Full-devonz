@@ -1,0 +1,26 @@
+{
+  "name": "@devonz/sdk",
+  "version": "1.0.0",
+  "description": "Official Devonz SDK — build plugins, integrations, and tools on the Devonz platform",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "exports": {
+    ".": { "import": "./dist/index.mjs", "require": "./dist/index.js" },
+    "./browser": { "import": "./dist/browser.mjs", "require": "./dist/browser.js" }
+  },
+  "scripts": {
+    "build": "tsup src/index.ts --format cjs,esm --dts",
+    "dev": "tsup src/index.ts --format cjs,esm --dts --watch",
+    "test": "vitest"
+  },
+  "dependencies": {
+    "@devonz/bridge": "workspace:*",
+    "@devonz/ai-core": "workspace:*",
+    "zod": "^3.23.8"
+  },
+  "devDependencies": {
+    "typescript": "^5.4.0",
+    "tsup": "^8.1.0",
+    "vitest": "^1.6.0"
+  }
+}

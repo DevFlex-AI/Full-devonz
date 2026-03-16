@@ -1,0 +1,41 @@
+version: "3.9"
+
+services:
+  web:
+    build:
+      context: ../..
+      dockerfile: infra/docker/Dockerfile.web
+    ports:
+      - "3000:3000"
+    environment:
+      - NODE_ENV=production
+      - DEVONZ_API_URL=${DEVONZ_API_URL:-https://api.devonz.ai}
+    depends_on:
+      - api
+
+  web-editor:
+    build:
+      context: ../..
+      dockerfile: infra/docker/Dockerfile.web-editor
+    ports:
+      - "3030:3030"
+    environment:
+      - DEVONZ_API_URL=${DEVONZ_API_URL:-https://api.devonz.ai}
+    volumes:
+      - editor-workspace:/workspace
+
+  api:
+    image: node:20-alpine
+    working_dir: /app
+    volumes:
+      - ./../../:/app
+    command: ["node", "apps/api/dist/server.js"]
+    ports:
+      - "3001:3001"
+    environment:
+      - DATABASE_URL=${DATABASE_URL}
+      - REDIS_URL=${REDIS_URL}
+      - JWT_SECRET=${JWT_SECRET}
+
+volumes:
+  editor-workspace:
